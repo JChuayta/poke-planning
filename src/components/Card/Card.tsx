@@ -27,25 +27,19 @@ const Card: React.FC<ICardProps> = ({
               <h3 className="card__number">{number}</h3>
             </div>
           ) : // if card is select or unselect, and show
-
           // if card is unselect, default
           isSelect ? (
-            <div className="card__noshow-select"></div>
+            notShow ? (
+              <div className="card__noshow-select card-minimi"></div>
+            ) : (
+              <div className="container__card card-minimi">
+                <h3 className="card__number">{number}</h3>
+              </div>
+            )
           ) : (
-            <div className="card__noshow-unselect"></div>
+            <div className="card__noshow-unselect card-minimi"></div>
           )
         }
-        {/* <div
-          className={`container__card ${
-            sizeOption === SizeOption.medium ? "card-medium" : "card-minimi"
-          }`}
-        >
-          {notShow ? (
-            <h3 className="card__number">{number}</h3>
-          ) : (
-            <div className="card__noshow-unselect"></div>
-          )}
-        </div> */}
         <h3 className="card__name">{name}</h3>
       </div>
     </>
