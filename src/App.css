@@ -1,0 +1,36 @@
+.list-cards {
+  height: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.table__content {
+  width: 100%;
+  height: 50rem;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+
+.content__show-votes {
+  height: 20rem;
+  width: 30rem;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  background-color: #d7e9ff;
+  border-radius: 2rem;
+}
+
+.votes__buton-show {
+  height: 5rem;
+  width: 17rem;
+  background-color: var(--color-secondary);
+  color: var(--color-principal);
+  border: 0;
+  border-radius: 2rem;
+}
