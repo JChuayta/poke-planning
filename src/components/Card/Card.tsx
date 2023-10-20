@@ -3,46 +3,62 @@ import { SizeOption } from "../../common";
 import "./styles.css";
 
 interface ICardProps {
-  isSelect?: boolean;
-  notShow?: boolean;
-  number?: number;
+  showCard?: boolean;
+  value: string;
   name?: string;
   sizeOption: SizeOption;
+  isSelected?: boolean;
+  onCardClick: (value: string) => void | undefined;
 }
 
 const Card: React.FC<ICardProps> = ({
-  notShow = true,
-  number,
+  showCard = false,
+  value,
   name,
   sizeOption,
-  isSelect,
+  isSelected,
+  onCardClick,
 }) => {
+  const toggleCard = () => {
+    onCardClick(value!);
+  };
+
+  const renderMediumCard = (
+    <div
+      className={`container__card card-medium ${
+        isSelected ? "container__card-select" : ""
+      }`}
+      onClick={toggleCard}
+    >
+      <h3 className="card__number">{value}</h3>
+    </div>
+  );
+
+  const renderMinimiCard = (
+    <div className="container__card card-minimi">
+      <h3 className="card__number">{value}</h3>
+    </div>
+  );
+
+  const renderNoShowCard = (
+    <div className="card-minimi card__noshow-select"></div>
+  );
+
+  const renderUnselectedNoShowCard = (
+    <div className="card-minimi card__noshow-unselect"></div>
+  );
+
   return (
-    <>
-      <div className="container">
-        {
-          // if card with number
-          sizeOption === SizeOption.medium ? (
-            <div className="container__card card-medium">
-              <h3 className="card__number">{number}</h3>
-            </div>
-          ) : // if card is select or unselect, and show
-          // if card is unselect, default
-          isSelect ? (
-            notShow ? (
-              <div className="card__noshow-select card-minimi"></div>
-            ) : (
-              <div className="container__card card-minimi">
-                <h3 className="card__number">{number}</h3>
-              </div>
-            )
-          ) : (
-            <div className="card__noshow-unselect card-minimi"></div>
-          )
-        }
-        <h3 className="card__name">{name}</h3>
-      </div>
-    </>
+    <div className="container">
+      {sizeOption === SizeOption.medium
+        ? renderMediumCard
+        : value !== null
+        ? showCard
+          ? renderMinimiCard
+          : renderNoShowCard
+        : renderUnselectedNoShowCard}
+      <h3 className="card__name">{name}</h3>
+    </div>
   );
 };
 

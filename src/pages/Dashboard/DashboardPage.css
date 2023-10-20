@@ -1,0 +1,116 @@
+.list-cards {
+  height: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.table__content {
+  width: 100%;
+  height: 50rem;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+
+.table__content-grid {
+  display: grid;
+  grid-template-areas:
+    "left top right"
+    "left table right"
+    "left bottom right";
+  grid-template-columns: 8rem 1fr 8rem;
+  grid-template-rows: auto 1fr auto;
+  max-width: 100%;
+  min-height: 38rem;
+  width: 44rem;
+}
+
+.grid__top {
+  align-items: stretch;
+  grid-area: top;
+
+  display: flex;
+  justify-content: center;
+}
+
+.grid__left {
+  grid-area: left;
+  flex-direction: column-reverse;
+
+  display: flex;
+  justify-content: center;
+}
+
+.grid__right {
+  grid-area: right;
+  flex-direction: column-reverse;
+
+  display: flex;
+  justify-content: center;
+}
+.grid__bottom {
+  align-items: stretch;
+  grid-area: bottom;
+
+  display: flex;
+  justify-content: center;
+}
+
+.grid__div {
+  background-color: blueviolet;
+  display: block;
+}
+.content__show-votes {
+  /* height: 20rem; */
+  /* width: 30rem; */
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  background-color: #d7e9ff;
+  /* border-radius: 2rem; */
+
+  background: #d7e9ff;
+  border-radius: 2.8rem;
+  grid-area: table;
+  min-width: 16rem;
+  padding: 0 1.6rem;
+  position: relative;
+}
+
+.show-votes__button {
+  height: 4rem;
+  width: 16rem;
+  background-color: var(--color-secondary);
+  color: var(--color-principal);
+  border: 0;
+  border-radius: 2rem;
+  cursor: pointer;
+  transition: all 0.09s linear;
+}
+
+.show-votes__button:hover {
+  height: 4.1rem;
+  width: 16.2rem;
+}
+
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  margin: 0;
+  background-color: #f0f0f0;
+}
+
+body {
+  /* display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  margin: 0; */
+  background-color: #f0f0f0;
+}
