@@ -6,9 +6,6 @@
 }
 
 .container__card {
-  /* its depends of your size
-  width: 8rem;
-  height: 12rem; */
   border-radius: 1.5rem;
   background-color: var(--color-principal);
   border: 3px solid var(--color-secondary);
@@ -18,9 +15,18 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-
   cursor: pointer;
   transition: all 0.09s linear;
+}
+
+.container__card-select {
+  transition: all 0.09s linear;
+  background-color: var(--color-secondary);
+  top: -20px;
+  position: relative;
+  .card__number {
+    color: var(--color-principal);
+  }
 }
 
 .card-medium {
@@ -36,17 +42,10 @@
 }
 
 .card__noshow-unselect {
-  /* height: 6rem;
-  width: 3.5rem;
-  border-radius: 0.9rem;
-   */
   background-color: #e8e9ea;
 }
 
 .card__noshow-select {
-  /* height: 6rem;
-  width: 3.5rem;
-  border-radius: 0.6rem; */
   align-items: center;
   background: linear-gradient(
       45deg,
@@ -74,9 +73,6 @@
   border: 1px solid hsla(204, 6%, 68%, 0.4);
   box-shadow: 0 2px 4px hsla(204, 6%, 68%, 0.4);
   cursor: pointer;
-}
-
-.card__show-number {
 }
 
 .card__number {
