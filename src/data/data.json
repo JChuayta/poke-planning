@@ -1,0 +1,29 @@
+{
+  "Room": {
+    "roomId": "",
+    "name": "",
+    "description": ""
+  },
+
+  "HU": {
+    "storyId": "",
+    "roomId": "",
+    "title": "",
+    "pointAverage": "",
+    "StoryPoint": [
+      {
+        "storyId": "",
+        "storyPointId": "",
+        "time": "",
+        "userId": "",
+        "value": ""
+      }
+    ]
+  },
+
+  "User": {
+    "userId": "",
+    "roomId": "",
+    "name": ""
+  }
+}
