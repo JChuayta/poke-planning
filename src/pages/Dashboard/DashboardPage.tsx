@@ -1,11 +1,49 @@
+import { useState } from "react";
 import { SizeOption } from "../../common";
 import { Card, Navbar } from "../../components";
 
-const fibonacci = [0, 1, 2, 3, 5, 8, 13, 21, 34, 55, 89];
+import "./DashboardPage.css";
+
+const fibonacci = [
+  "0",
+  "1",
+  "2",
+  "3",
+  "5",
+  "8",
+  "13",
+  "21",
+  "34",
+  "55",
+  "89",
+  "?",
+  "☕",
+];
+
 export const DashboardPage = () => {
-  const listCards = fibonacci.map((elemento, index) => (
-    <Card key={index} number={elemento} sizeOption={SizeOption.medium} />
-  ));
+  const [showCard, setShowCard] = useState(false);
+  const [cardActive, setCardActive] = useState<string | null>(null);
+
+  const [selectedValue, setSelectedValue] = useState<string | null>(null);
+
+  const onShowCard = () => {
+    if (selectedValue !== null) {
+      setShowCard((value) => !value);
+    }
+  };
+
+  const handleCardClick = (value: string) => {
+    if (selectedValue === value) {
+      setCardActive(null);
+      setSelectedValue(null);
+
+      setShowCard(true);
+    } else {
+      setSelectedValue(value);
+      setCardActive(value);
+      setShowCard(false);
+    }
+  };
   return (
     <>
       <div className="layout">
@@ -14,79 +52,102 @@ export const DashboardPage = () => {
         {/* BODY */}
         <main>
           <div className="body__content">
-            {/* <div className="Table-module--wrapper--d3b49" data-test="table">
-              <div className="Table-module--container--a6bae Table-module--container--is-user-lonely--afd01">
-                <div></div>
-                <div className="Table-module--top--b3bb9">
-                  <div className="Table-module--invite-players-container--7acba">
-                    <div className="Table-module--invite-players-label--2a5a5">
-                      Feeling lonely?{" "}
-                      <span role="img" aria-label="sleeping">
-                        😴
-                      </span>
-                    </div>
-                    <div>
-                      <button
-                        className="Table-module--invite-players-button--3db24 ButtonLink-module--button-link--b40a3 is-clickable"
-                        type="button"
-                      >
-                        <span className="is-clickable">Invite players</span>
-                      </button>
-                    </div>
-                  </div>
-                </div>
-                <div></div>
-                <div className="Table-module--left--8e0b8"></div>
-                <div className="Table-module--table--27541">
-                  <span></span>
-                  <span></span>
-                  <span></span>
-                  <span></span>
-                  <div className="Table-module--table-content--f8a60">
-                    <div className="Table-module--table-caption--7bc74">
-                      Pick your cards!
-                    </div>
-                  </div>
-                </div>
-                <div className="Table-module--right--cb999"></div>
-                <div></div>
-                <div className="Table-module--bottom--841c2">
-                  <div className="Table-module--player-container--6c301">
-                    <div className="Player-module--player-wrapper--5e61a">
-                      <div className="Player-module--card-container--4487b Player-module--is-empty--aafd1"></div>
-                      <div className="Player-module--profile-container--b6500">
-                        <div
-                          className="Player-module--player-name--6f268 notranslate"
-                          translate="no"
-                        >
-                          Jc
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div></div>
-              </div>
-            </div> */}
-
             <div className="table__content">
               {/* cards around of table */}
 
-              <div className="show-votes__votes"></div>
-              <Card
-                notShow={false}
-                sizeOption={SizeOption.minimi}
-                name="Jc"
-                isSelect={true}
-                number={3}
-              />
+              <div className="table__content-grid">
+                <div className="grid__div"></div>
+                <div className="grid__top">
+                  <Card
+                    showCard={showCard}
+                    sizeOption={SizeOption.minimi}
+                    name="Jc"
+                    value={cardActive!}
+                    isSelected={showCard}
+                    onCardClick={() => {}}
+                  />
+                  <Card
+                    showCard={showCard}
+                    sizeOption={SizeOption.minimi}
+                    name="Edson"
+                    value={cardActive!}
+                    isSelected={showCard}
+                    onCardClick={() => {}}
+                  />
+                </div>
+                <div className="grid__div"></div>
+                <div className="grid__left">
+                  <Card
+                    showCard={showCard}
+                    sizeOption={SizeOption.minimi}
+                    name="Gustavo"
+                    value={cardActive!}
+                    isSelected={showCard}
+                    onCardClick={() => {}}
+                  />
+                  <Card
+                    showCard={showCard}
+                    sizeOption={SizeOption.minimi}
+                    name="Josue"
+                    value={cardActive!}
+                    isSelected={showCard}
+                    onCardClick={() => {}}
+                  />
+                </div>
+                {/* table */}
+                <div className="content__show-votes">
+                  {selectedValue !== null ? (
+                    <button onClick={onShowCard} className="show-votes__button">
+                      Show Cards
+                    </button>
+                  ) : (
+                    <h4> Seleccione una tarjeta</h4>
+                  )}
+                </div>
 
-              {/* table */}
-              <div className="content__show-votes">
-                <button className="votes__buton-show">Show Cards</button>
+                <div className="grid__right">
+                  <Card
+                    showCard={showCard}
+                    sizeOption={SizeOption.minimi}
+                    name="Alfredo"
+                    value={cardActive!}
+                    isSelected={showCard}
+                    onCardClick={() => {}}
+                  />
+                  <Card
+                    showCard={showCard}
+                    sizeOption={SizeOption.minimi}
+                    name="Kevin"
+                    value={cardActive!}
+                    isSelected={showCard}
+                    onCardClick={() => {}}
+                  />
+                </div>
+                <div className="grid__div"></div>
+                <div className="grid__bottom">
+                  <Card
+                    showCard={showCard}
+                    sizeOption={SizeOption.minimi}
+                    name="Torito"
+                    value={cardActive!}
+                    isSelected={showCard}
+                    onCardClick={() => {}}
+                  />
+                </div>
+                <div className="grid__div"></div>
               </div>
             </div>
-            <div className="list-cards">{listCards}</div>
+            <div className="list-cards">
+              {fibonacci.map((elemento, index) => (
+                <Card
+                  key={index}
+                  sizeOption={SizeOption.medium}
+                  value={elemento}
+                  isSelected={selectedValue === elemento}
+                  onCardClick={handleCardClick}
+                />
+              ))}
+            </div>
           </div>
         </main>
 
