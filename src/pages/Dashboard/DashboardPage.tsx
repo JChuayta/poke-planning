@@ -1,4 +1,11 @@
-import { addDoc, collection, serverTimestamp } from "firebase/firestore";
+import {
+  DocumentData,
+  QueryDocumentSnapshot,
+  addDoc,
+  collection,
+  getDocs,
+  serverTimestamp,
+} from "firebase/firestore";
 import { useEffect, useState } from "react";
 import { SizeOption } from "../../common";
 import { Card, Navbar } from "../../components";
@@ -11,25 +18,17 @@ import "./DashboardPage.css";
 import { Sidebar } from "./components/Sidebar";
 import { fibonacci } from "./enums";
 
-// import { socket } from "./socket";
-import { io } from "socket.io-client";
-
-// "undefined" means the URL will be computed from the `window.location` object
-// const URL = "https://github.io/poke-planning-server";
-const URL = "http://localhost:8080";
-
-// const socket = io(URL);
-export const socket = io(URL);
+import { onSnapshot } from "firebase/firestore";
 
 export const DashboardPage = () => {
   const [showCard, setShowCard] = useState(false);
   const [cardActive, setCardActive] = useState<string | null>(null);
   const [selectedValue, setSelectedValue] = useState<string | null>(null);
 
+  const [users, setUsers] = useState([]);
+
   // const dispatch = useDispatch();
-  const { isComplete, user, nameRoom } = useSelector(
-    (state: RootState) => state.room.room
-  );
+  const { nameRoom } = useSelector((state: RootState) => state.room.room);
 
   const onShowCard = () => {
     if (selectedValue !== null) {
@@ -37,60 +36,72 @@ export const DashboardPage = () => {
     }
   };
 
-  const [isConnected, setIsConnected] = useState(socket.connected);
-  // const [fooEvents, setFooEvents] = useState([]);
-
   useEffect(() => {
-    function onConnect() {
-      setIsConnected(true);
-    }
+    const refRoom = collection(db, "Room");
 
-    function onDisconnect() {
-      setIsConnected(false);
-    }
-
-    // function onFooEvent(value) {
-    //   setFooEvents((previous) => [...previous, value]);
-    // }
-
-    socket.on("connect", onConnect);
-    socket.on("disconnect", onDisconnect);
-
-    socket.on("user", (payload) => {});
-
-    // socket.on("foo", onFooEvent);
-
+    const unsubscribe = onSnapshot(refRoom, (snapshot) => {
+      const room = snapshot.docs.map((doc: QueryDocumentSnapshot) => ({
+        data: doc.data(),
+      }));
+      console.log(room, "room");
+    });
     return () => {
-      socket.off("connect", onConnect);
-      socket.off("disconnect", onDisconnect);
-      // socket.off("foo", onFooEvent);
+      unsubscribe();
     };
   }, []);
 
-  const pointDBRef = collection(db, "storyPoints");
-  // const roomDbRef = collection(db, "Room");
+  useEffect(() => {
+    testConnection();
+  }, []);
 
-  // const pointDBRef = collection(db, "points");
+  const testConnection = () => {
+    const refRoom = collection(db, "Room");
+    getDocs(refRoom)
+      .then((response) => {
+        const room = response.docs.map((doc: QueryDocumentSnapshot) => ({
+          data: doc.data(),
+          id: doc.id,
+        }));
+        console.log(room);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+  const pointDBRef = collection(db, "storyPoints");
 
   const savePoint = async (value: string) => {
-    console.log({ isComplete, user, nameRoom });
+    console.log({ nameRoom });
     await addDoc(pointDBRef, {
       text: value,
       createdAt: serverTimestamp(),
-      user: user,
       room: nameRoom,
     });
   };
 
+  useEffect(() => {
+    const userRef = collection(db, "User");
+    const unsubscribe = onSnapshot(userRef, (snapshot) => {
+      const user: any = snapshot.docs.map((doc: DocumentData) => {
+        const usertemporal: any = {
+          ...doc.data(),
+          id: doc.id,
+        };
+        return usertemporal;
+      });
+
+      setUsers(user);
+      console.log(user, "usuarios");
+    });
+    return () => {
+      unsubscribe();
+    };
+  }, []);
+
+  const slicesUser = () => {};
+
   const handleCardClick = (value: string) => {
-    //here save point in firebase
     savePoint(value);
-    // addDoc(pointDBRef, {
-    //   text: value,
-    //   createdAt: serverTimestamp(),
-    //   user: user,
-    //   room: nameRoom,
-    // });
 
     if (selectedValue === value) {
       setCardActive(null);
@@ -103,9 +114,6 @@ export const DashboardPage = () => {
       setShowCard(false);
     }
   };
-
-  // const selectedTask = (value: string) => {};
-
   return (
     <>
       {/* <ModalRoom showModal={!isComplete} closeModal={() => {}} /> */}
@@ -126,6 +134,30 @@ export const DashboardPage = () => {
                 <div className="table__content-grid">
                   <div className="grid__div"></div>
                   <div className="grid__top">
+                    <Card
+                      showCard={showCard}
+                      sizeOption={SizeOption.minimi}
+                      name="Jc"
+                      value={cardActive!}
+                      isSelected={showCard}
+                      onCardClick={() => {}}
+                    />
+                    <Card
+                      showCard={showCard}
+                      sizeOption={SizeOption.minimi}
+                      name="Jc"
+                      value={cardActive!}
+                      isSelected={showCard}
+                      onCardClick={() => {}}
+                    />
+                    <Card
+                      showCard={showCard}
+                      sizeOption={SizeOption.minimi}
+                      name="Jc"
+                      value={cardActive!}
+                      isSelected={showCard}
+                      onCardClick={() => {}}
+                    />
                     <Card
                       showCard={showCard}
                       sizeOption={SizeOption.minimi}

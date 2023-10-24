@@ -1,11 +1,12 @@
 import { configureStore } from "@reduxjs/toolkit";
-import { roomSlice } from "./slices/room/room.slice";
+import { huSlice, roomSlice } from "./slices";
 
 // ...
 
 export const store = configureStore({
   reducer: {
     room: roomSlice.reducer,
+    hu: huSlice.reducer,
   },
 });
 

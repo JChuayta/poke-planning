@@ -34,7 +34,7 @@ const initialState: HuProps = {
   ],
 };
 
-export const roomSlice = createSlice({
+export const huSlice = createSlice({
   name: "hu",
   initialState: {
     hu: initialState,
@@ -44,14 +44,11 @@ export const roomSlice = createSlice({
     createHu: (state, action) => {
       //   console.log(state);
       state.hu = action.payload.hu;
-      //   state.hu.roomId =
-      // state.room.nameRoom !== "" && state.room.user !== "";
-      //   console.log(state.room.isComplete, "complete");
     },
   },
 });
 
-export const { createHu } = roomSlice.actions;
+export const { createHu } = huSlice.actions;
 
 // Other code such as selectors can use the imported `RootState` type
 // export const selectCount = (state: RootState) => state.counter.value;

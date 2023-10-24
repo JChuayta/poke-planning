@@ -1,67 +1,77 @@
+import {
+  DocumentData,
+  addDoc,
+  collection,
+  doc,
+  onSnapshot,
+  updateDoc,
+} from "firebase/firestore";
 import { useEffect, useState } from "react";
-import { socket } from "../../DashboardPage";
+import { db } from "../../../../common";
 import { TaskCard } from "../TaskCard/TaskCard.component";
 import "./SideBar.component.css";
 
 interface Task {
-  id: number;
+  id?: string;
   task: string;
-  selected: boolean;
+  selectedId: string | null;
 }
 
 const SideBar = () => {
   const [tasks, setTasks] = useState<Task[]>([]);
   const [inputTask, setInputTask] = useState<string>("");
-  const [selectedId, setSelectedId] = useState<number | null>(null);
 
-  const handleToggle = (id: number) => {
-    console.log(id, "id");
-    if (selectedId === id) {
-      setSelectedId(null);
+  const huRef = collection(db, "HU");
+
+  const handleToggle = (id: string) => {
+    const huRefUpdate = doc(db, "HU", id);
+    const huSelected: Task | undefined = tasks.find(
+      (objeto) => objeto.id === id
+    );
+    // esta medio raro hacerlo asi
+    // se puede hacer lo mismo con solo cambiarlo con un boolean
+    if (huSelected!.selectedId === id) {
+      updateDoc(huRefUpdate, {
+        selectedId: null,
+      });
     } else {
-      setSelectedId(id);
+      updateDoc(huRefUpdate, {
+        selectedId: id,
+      });
     }
-  };
-
-  const emitToggleButton = (id: number) => {
-    console.log("click");
-    socket.emit("select-hu", id, (payload: number) => {
-      console.log(payload, "lo que trae del");
-      handleToggle(payload);
-    });
   };
 
   const addTask = () => {
     if (inputTask.trim() !== "") {
       const newtask: Task = {
-        id: tasks.length + 1,
         task: inputTask,
-        selected: false,
+        selectedId: null,
       };
-      // socket.emit("add-hu", newtask);
-      socket.emit("add-hu", newtask, (payload: Task) => {
-        setTasks([...tasks, payload]);
-      });
-      // emitir(newtask);
+
+      addDoc(huRef, newtask);
+
+      setTasks([...tasks, newtask]);
       setInputTask("");
     }
   };
 
-  // const emitir = (tasks: Task) => {
-  //   socket.emit("add-hu", tasks, () => {});
-  // };
   useEffect(() => {
-    socket.on("select-hu-card", (payload) => {
-      handleToggle(payload);
-    });
-  }, []);
+    const unsubscribe = onSnapshot(huRef, (snapshot) => {
+      const hu: Task[] = snapshot.docs.map((doc: DocumentData) => {
+        const hutemporal: Task = {
+          ...doc.data(),
+          id: doc.id,
+        };
+        return hutemporal;
+      });
 
-  useEffect(() => {
-    socket.on("list-hu", (payload) => {
-      console.log(payload);
-      setTasks([...tasks, payload]);
+      setTasks(hu);
+      console.log(hu, "historia de ususario");
     });
-  }, [tasks]);
+    return () => {
+      unsubscribe();
+    };
+  }, []);
 
   return (
     <div className="content__sidebar">
@@ -88,8 +98,9 @@ const SideBar = () => {
             <TaskCard
               key={index}
               value={task}
-              selected={selectedId === task.id}
-              onCardClick={() => emitToggleButton(task.id)}
+              // selected={task.selected}
+              selected={task.selectedId === task.id}
+              onCardClick={() => handleToggle(task.id!)}
             />
           ))}
         </div>

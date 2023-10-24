@@ -1,17 +1,15 @@
 import { createSlice } from "@reduxjs/toolkit";
-
-// Define a type for the slice state
 interface RoomProps {
-  nameRoom: string; // name room
-  user: string;
-  isComplete: boolean;
+  roomId: string;
+  nameRoom: string;
+  description: string;
 }
 
 // Define the initial state using that type
 const initialState: RoomProps = {
+  roomId: "123123",
   nameRoom: "",
-  user: "Jc",
-  isComplete: false,
+  description: "Sprint 1",
 };
 
 export const roomSlice = createSlice({
@@ -24,9 +22,9 @@ export const roomSlice = createSlice({
     createRoom: (state, action) => {
       console.log(state);
       state.room = action.payload.room;
-      state.room.isComplete =
-        state.room.nameRoom !== "" && state.room.user !== "";
-      console.log(state.room.isComplete, "complete");
+      // state.room.isComplete =
+      //   state.room.nameRoom !== "" && state.room.user !== "";
+      // console.log(state.room.isComplete, "complete");
     },
   },
 });
