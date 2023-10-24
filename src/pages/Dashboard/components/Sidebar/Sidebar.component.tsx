@@ -23,6 +23,14 @@ const SideBar = () => {
     }
   };
 
+  const emitToggleButton = (id: number) => {
+    console.log("click");
+    socket.emit("select-hu", id, (payload: number) => {
+      console.log(payload, "lo que trae del");
+      handleToggle(payload);
+    });
+  };
+
   const addTask = () => {
     if (inputTask.trim() !== "") {
       const newtask: Task = {
@@ -30,29 +38,30 @@ const SideBar = () => {
         task: inputTask,
         selected: false,
       };
-      console.log(tasks);
-      emitir(newtask);
+      // socket.emit("add-hu", newtask);
+      socket.emit("add-hu", newtask, (payload: Task) => {
+        setTasks([...tasks, payload]);
+      });
+      // emitir(newtask);
       setInputTask("");
     }
   };
 
-  const emitir = (tasks: Task) => {
-    // console.log(tasks, "emitir");
-    socket.emit("add-hu", tasks, () => {});
-  };
+  // const emitir = (tasks: Task) => {
+  //   socket.emit("add-hu", tasks, () => {});
+  // };
+  useEffect(() => {
+    socket.on("select-hu-card", (payload) => {
+      handleToggle(payload);
+    });
+  }, []);
 
   useEffect(() => {
     socket.on("list-hu", (payload) => {
+      console.log(payload);
       setTasks([...tasks, payload]);
     });
-    // socket.on("foo", onFooEvent);
-
-    // return () => {
-    //   socket.off("connect", onConnect);
-    //   socket.off("disconnect", onDisconnect);
-    //   // socket.off("foo", onFooEvent);
-    // };
-  }, []);
+  }, [tasks]);
 
   return (
     <div className="content__sidebar">
@@ -80,7 +89,7 @@ const SideBar = () => {
               key={index}
               value={task}
               selected={selectedId === task.id}
-              onCardClick={() => handleToggle(task.id)}
+              onCardClick={() => emitToggleButton(task.id)}
             />
           ))}
         </div>

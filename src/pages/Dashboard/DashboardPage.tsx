@@ -8,7 +8,6 @@ import { db } from "../../common/config";
 import { useSelector } from "react-redux";
 import { RootState } from "../../store";
 import "./DashboardPage.css";
-import { ModalRoom } from "./components";
 import { Sidebar } from "./components/Sidebar";
 import { fibonacci } from "./enums";
 
@@ -16,12 +15,11 @@ import { fibonacci } from "./enums";
 import { io } from "socket.io-client";
 
 // "undefined" means the URL will be computed from the `window.location` object
+// const URL = "https://github.io/poke-planning-server";
 const URL = "http://localhost:8080";
 
 // const socket = io(URL);
-export const socket = io(URL, {
-  autoConnect: true,
-});
+export const socket = io(URL);
 
 export const DashboardPage = () => {
   const [showCard, setShowCard] = useState(false);
@@ -38,29 +36,6 @@ export const DashboardPage = () => {
       setShowCard((value) => !value);
     }
   };
-
-  // const unsub = onSnapshot(doc(db, "cities", "SF"), (doc) => {
-  //   console.log("Current data: ", doc.data());
-  // });
-  // useEffect(() => {
-  //   const unsub = onSnapshot(doc(db, "Room", "User"), (doc) => {
-  //     console.log("Current data: ", doc.data());
-  //   });
-  //   // const getData = async () => {
-  //   //   const room = collection(db, "Room");
-  //   //   const roomSnapshot = await getDocs(room);
-  //   //   const roomList = roomSnapshot.docs.map((doc) => doc.data());
-  //   //   console.log(roomList);
-  //   // };
-
-  //   // return () => {
-  //   //   getData();
-  //   // };
-
-  //   return () => {
-  //     unsub();
-  //   };
-  // }, [db]);
 
   const [isConnected, setIsConnected] = useState(socket.connected);
   // const [fooEvents, setFooEvents] = useState([]);
@@ -80,9 +55,9 @@ export const DashboardPage = () => {
 
     socket.on("connect", onConnect);
     socket.on("disconnect", onDisconnect);
-    socket.on("enviar-mensaje", (payload) => {
-      console.log(payload);
-    });
+
+    socket.on("user", (payload) => {});
+
     // socket.on("foo", onFooEvent);
 
     return () => {
@@ -133,7 +108,7 @@ export const DashboardPage = () => {
 
   return (
     <>
-      <ModalRoom showModal={!isComplete} closeModal={() => {}} />
+      {/* <ModalRoom showModal={!isComplete} closeModal={() => {}} /> */}
 
       <div className="layout">
         {/* NAVBAR */}
