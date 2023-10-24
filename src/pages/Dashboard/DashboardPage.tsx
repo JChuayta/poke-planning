@@ -10,7 +10,7 @@ import { useEffect, useState } from "react";
 import { SizeOption } from "../../common";
 import { Card, Navbar } from "../../components";
 
-import { db } from "../../common/config";
+// import { db } from "../../common/config";
 
 import { useSelector } from "react-redux";
 import { RootState } from "../../store";
@@ -19,6 +19,7 @@ import { Sidebar } from "./components/Sidebar";
 import { fibonacci } from "./enums";
 
 import { onSnapshot } from "firebase/firestore";
+import { db } from "../../firebase/config";
 
 export const DashboardPage = () => {
   const [showCard, setShowCard] = useState(false);

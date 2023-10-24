@@ -92,14 +92,14 @@
   width: 16.2rem;
 }
 
-body {
+/* body {
   display: flex;
   justify-content: center;
   align-items: center;
   min-height: 100vh;
   margin: 0;
   background-color: #f0f0f0;
-}
+} */
 .layout__content {
   height: 80vh;
   width: 95vw;
