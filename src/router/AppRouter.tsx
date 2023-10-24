@@ -2,17 +2,18 @@ import { Navigate, Route, Routes } from "react-router-dom";
 import { DashboardPage, LoginPage } from "../pages";
 
 export const AppRouter = () => {
-  const authStatus = "authenticated";
-  //   const authStatus = "not-authenticated";
+
+  const accessToken = sessionStorage.getItem("accessToken");
+  console.log("token",accessToken)
   return (
     <Routes>
       {/* its depends go to route login */}
-      {authStatus === "not-authenticated" ? (
+      {!accessToken ? (
         <Route path="auth" element={<LoginPage />} />
       ) : (
         <Route path="/*" element={<DashboardPage />} />
       )}
-      <Route path="/*" element={<Navigate to="/auth/login" />} />
+      <Route path="/*" element={<Navigate to="/auth" />} />
     </Routes>
   );
 };
