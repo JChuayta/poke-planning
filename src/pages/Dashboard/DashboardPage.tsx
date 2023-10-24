@@ -98,7 +98,9 @@ export const DashboardPage = () => {
     };
   }, []);
 
-  const slicesUser = () => {};
+  const slicesUser = () => {
+    users;
+  };
 
   const handleCardClick = (value: string) => {
     savePoint(value);
