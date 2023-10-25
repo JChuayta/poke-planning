@@ -23,7 +23,12 @@ export const DashboardPage = () => {
   const [cardActive, setCardActive] = useState<string | null>(null);
   const [selectedValue, setSelectedValue] = useState<string | null>(null);
 
-  const [users, setUsers] = useState([]);
+  interface User {
+    id: string;
+    name: string;
+    position: number;
+  }
+  const [users, setUsers] = useState<User[]>([]);
 
   const { nameRoom } = useSelector((state: RootState) => state.room.room);
 
@@ -60,12 +65,7 @@ export const DashboardPage = () => {
 
   useEffect(() => {
     const userRef = collection(db, "User");
-    const tiposPosibles: ("top" | "bottom" | "left" | "right")[] = [
-      "top",
-      "bottom",
-      "left",
-      "right",
-    ];
+
     const unsubscribe = onSnapshot(userRef, (snapshot) => {
       const user: any = snapshot.docs.map((doc: DocumentData) => {
         const usertemporal: any = {
@@ -84,10 +84,6 @@ export const DashboardPage = () => {
       unsubscribe();
     };
   }, []);
-
-  const slicesUser = () => {
-    // users.
-  };
 
   const handleCardClick = (value: string) => {
     savePoint(value);
@@ -123,7 +119,7 @@ export const DashboardPage = () => {
                 <div className="table__content-grid">
                   <div className="grid__div"></div>
                   <div className="grid__top">
-                    {users.map((user, index) =>
+                    {users.map((user) =>
                       user.position === 0 ? (
                         <Card
                           key={user.id}
@@ -141,7 +137,7 @@ export const DashboardPage = () => {
                   </div>
                   <div className="grid__div"></div>
                   <div className="grid__left">
-                    {users.map((user, index) =>
+                    {users.map((user) =>
                       user.position === 1 ? (
                         <Card
                           key={user.id}
@@ -172,7 +168,7 @@ export const DashboardPage = () => {
                   </div>
 
                   <div className="grid__right">
-                    {users.map((user, index) =>
+                    {users.map((user) =>
                       user.position === 2 ? (
                         <Card
                           key={user.id}
@@ -190,7 +186,7 @@ export const DashboardPage = () => {
                   </div>
                   <div className="grid__div"></div>
                   <div className="grid__bottom">
-                    {users.map((user, index) =>
+                    {users.map((user) =>
                       user.position === 3 ? (
                         <Card
                           key={user.id}

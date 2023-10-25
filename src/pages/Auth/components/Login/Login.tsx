@@ -24,7 +24,7 @@ export default function Login() {
         FirebaseAuth,
         googleProvider
       );
-      sessionStorage.setItem("accessToken", result.user.accessToken);
+      sessionStorage.setItem("accessToken", result.user.refreshToken);
       setLoggedIn(true);
       sessionStorage.setItem(
         "DisplayName",
