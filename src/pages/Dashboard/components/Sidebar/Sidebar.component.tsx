@@ -9,7 +9,7 @@ import {
 import { useEffect, useState } from "react";
 import { db } from "../../../../firebase/config";
 import { TaskCard } from "../TaskCard/TaskCard.component";
-import "./SideBar.component.css";
+import "./Sidebar.component.css";
 
 interface Task {
   id?: string;
