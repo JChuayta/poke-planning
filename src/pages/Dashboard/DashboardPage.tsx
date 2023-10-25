@@ -3,23 +3,22 @@ import {
   QueryDocumentSnapshot,
   addDoc,
   collection,
-  getDocs,
   serverTimestamp,
 } from "firebase/firestore";
+import "./DashboardPage.css";
+
 import { useEffect, useState } from "react";
 import { SizeOption } from "../../common";
 import { Card, Navbar } from "../../components";
 
 // import { db } from "../../common/config";
 
+import { onSnapshot } from "firebase/firestore";
 import { useSelector } from "react-redux";
+import { db } from "../../firebase/config";
 import { RootState } from "../../store";
-import "./DashboardPage.css";
 import { Sidebar } from "./components/Sidebar";
 import { fibonacci } from "./enums";
-
-import { onSnapshot } from "firebase/firestore";
-import { db } from "../../firebase/config";
 
 export const DashboardPage = () => {
   const [showCard, setShowCard] = useState(false);
@@ -28,7 +27,6 @@ export const DashboardPage = () => {
 
   const [users, setUsers] = useState([]);
 
-  // const dispatch = useDispatch();
   const { nameRoom } = useSelector((state: RootState) => state.room.room);
 
   const onShowCard = () => {
@@ -51,24 +49,6 @@ export const DashboardPage = () => {
     };
   }, []);
 
-  useEffect(() => {
-    testConnection();
-  }, []);
-
-  const testConnection = () => {
-    const refRoom = collection(db, "Room");
-    getDocs(refRoom)
-      .then((response) => {
-        const room = response.docs.map((doc: QueryDocumentSnapshot) => ({
-          data: doc.data(),
-          id: doc.id,
-        }));
-        console.log(room);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  };
   const pointDBRef = collection(db, "storyPoints");
 
   const savePoint = async (value: string) => {
@@ -82,12 +62,20 @@ export const DashboardPage = () => {
 
   useEffect(() => {
     const userRef = collection(db, "User");
+    const tiposPosibles: ("top" | "bottom" | "left" | "right")[] = [
+      "top",
+      "bottom",
+      "left",
+      "right",
+    ];
     const unsubscribe = onSnapshot(userRef, (snapshot) => {
       const user: any = snapshot.docs.map((doc: DocumentData) => {
         const usertemporal: any = {
           ...doc.data(),
           id: doc.id,
+          // position: Math.floor(Math.random() * tiposPosibles.length),
         };
+
         return usertemporal;
       });
 
@@ -100,7 +88,7 @@ export const DashboardPage = () => {
   }, []);
 
   const slicesUser = () => {
-    users;
+    // users.
   };
 
   const handleCardClick = (value: string) => {
@@ -137,65 +125,39 @@ export const DashboardPage = () => {
                 <div className="table__content-grid">
                   <div className="grid__div"></div>
                   <div className="grid__top">
-                    <Card
-                      showCard={showCard}
-                      sizeOption={SizeOption.minimi}
-                      name="Jc"
-                      value={cardActive!}
-                      isSelected={showCard}
-                      onCardClick={() => {}}
-                    />
-                    <Card
-                      showCard={showCard}
-                      sizeOption={SizeOption.minimi}
-                      name="Jc"
-                      value={cardActive!}
-                      isSelected={showCard}
-                      onCardClick={() => {}}
-                    />
-                    <Card
-                      showCard={showCard}
-                      sizeOption={SizeOption.minimi}
-                      name="Jc"
-                      value={cardActive!}
-                      isSelected={showCard}
-                      onCardClick={() => {}}
-                    />
-                    <Card
-                      showCard={showCard}
-                      sizeOption={SizeOption.minimi}
-                      name="Jc"
-                      value={cardActive!}
-                      isSelected={showCard}
-                      onCardClick={() => {}}
-                    />
-                    <Card
-                      showCard={showCard}
-                      sizeOption={SizeOption.minimi}
-                      name="Edson"
-                      value={cardActive!}
-                      isSelected={showCard}
-                      onCardClick={() => {}}
-                    />
+                    {users.map((user, index) =>
+                      user.position === 0 ? (
+                        <Card
+                          key={user.id}
+                          name={user.name!}
+                          showCard={showCard}
+                          sizeOption={SizeOption.minimi}
+                          value={cardActive!}
+                          isSelected={showCard}
+                          onCardClick={() => {}}
+                        />
+                      ) : (
+                        <div></div>
+                      )
+                    )}
                   </div>
                   <div className="grid__div"></div>
                   <div className="grid__left">
-                    <Card
-                      showCard={showCard}
-                      sizeOption={SizeOption.minimi}
-                      name="Gustavo"
-                      value={cardActive!}
-                      isSelected={showCard}
-                      onCardClick={() => {}}
-                    />
-                    <Card
-                      showCard={showCard}
-                      sizeOption={SizeOption.minimi}
-                      name="Josue"
-                      value={cardActive!}
-                      isSelected={showCard}
-                      onCardClick={() => {}}
-                    />
+                    {users.map((user, index) =>
+                      user.position === 1 ? (
+                        <Card
+                          key={user.id}
+                          name={user.name!}
+                          showCard={showCard}
+                          sizeOption={SizeOption.minimi}
+                          value={cardActive!}
+                          isSelected={showCard}
+                          onCardClick={() => {}}
+                        />
+                      ) : (
+                        <div></div>
+                      )
+                    )}
                   </div>
                   {/* table */}
                   <div className="body__show-votes">
@@ -212,33 +174,39 @@ export const DashboardPage = () => {
                   </div>
 
                   <div className="grid__right">
-                    <Card
-                      showCard={showCard}
-                      sizeOption={SizeOption.minimi}
-                      name="Alfredo"
-                      value={cardActive!}
-                      isSelected={showCard}
-                      onCardClick={() => {}}
-                    />
-                    <Card
-                      showCard={showCard}
-                      sizeOption={SizeOption.minimi}
-                      name="Kevin"
-                      value={cardActive!}
-                      isSelected={showCard}
-                      onCardClick={() => {}}
-                    />
+                    {users.map((user, index) =>
+                      user.position === 2 ? (
+                        <Card
+                          key={user.id}
+                          name={user.name!}
+                          showCard={showCard}
+                          sizeOption={SizeOption.minimi}
+                          value={cardActive!}
+                          isSelected={showCard}
+                          onCardClick={() => {}}
+                        />
+                      ) : (
+                        <div></div>
+                      )
+                    )}
                   </div>
                   <div className="grid__div"></div>
                   <div className="grid__bottom">
-                    <Card
-                      showCard={showCard}
-                      sizeOption={SizeOption.minimi}
-                      name="Torito"
-                      value={cardActive!}
-                      isSelected={showCard}
-                      onCardClick={() => {}}
-                    />
+                    {users.map((user, index) =>
+                      user.position === 3 ? (
+                        <Card
+                          key={user.id}
+                          name={user.name!}
+                          showCard={showCard}
+                          sizeOption={SizeOption.minimi}
+                          value={cardActive!}
+                          isSelected={showCard}
+                          onCardClick={() => {}}
+                        />
+                      ) : (
+                        <div></div>
+                      )
+                    )}
                   </div>
                   <div className="grid__div"></div>
                 </div>

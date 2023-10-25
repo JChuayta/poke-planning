@@ -7,7 +7,6 @@ import {
   updateDoc,
 } from "firebase/firestore";
 import { useEffect, useState } from "react";
-// import { db } from "../../../../common";
 import { db } from "../../../../firebase/config";
 import { TaskCard } from "../TaskCard/TaskCard.component";
 import "./SideBar.component.css";
