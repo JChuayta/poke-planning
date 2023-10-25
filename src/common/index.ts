@@ -1,1 +1,2 @@
-export * from "./sizeOption.enum";
+export * from "./config";
+export * from "./enum";

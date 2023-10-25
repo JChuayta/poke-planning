@@ -25,13 +25,12 @@ export default function Login() {
         googleProvider
       );
       sessionStorage.setItem("accessToken", result.user.accessToken);
-      setLoggedIn(true)
+      setLoggedIn(true);
       sessionStorage.setItem(
         "DisplayName",
         result.user.displayName ? result.user.displayName : "Sin nombre"
       );
       sessionStorage.setItem("uid", result.user.uid);
-
 
       // Ahora puedes acceder a la información del usuario desde result.user
       console.log(result);
@@ -82,14 +81,8 @@ export default function Login() {
             onChange={handleInputChange}
           />
           <div className="container-button-login">
-            <Button onClick={signInWithGoogle} >
-              Iniciar Sesión
-            </Button>
-            <Button
-              shape="circle"
-              icon={<GoogleOutlined />}
-              size={size}
-            />
+            <Button onClick={signInWithGoogle}>Iniciar Sesión</Button>
+            <Button shape="circle" icon={<GoogleOutlined />} size={size} />
           </div>
         </Space>
       </form>

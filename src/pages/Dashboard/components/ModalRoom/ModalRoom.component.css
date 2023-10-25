@@ -1,0 +1,68 @@
+/* Modal Styles */
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* display: none; */
+}
+
+.modal__dialog {
+  height: 30vh;
+  width: 40vw;
+  display: flex;
+  flex-direction: column;
+  background: #fff;
+  border-radius: 2rem;
+}
+.dialog__header {
+  height: 5rem;
+  width: 100%;
+  display: flex;
+  margin-bottom: 5rem;
+  align-items: center;
+  justify-content: center;
+  border-radius: 2rem 2rem 0 0;
+  background-color: var(--color-secondary);
+}
+
+.header__title {
+  /* color: var(--color-principal); */
+}
+
+.dialog__content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.content__input {
+  width: 60%;
+  height: 5.6rem;
+  margin-bottom: 1rem;
+  appearance: none;
+  background: transparent;
+  border: 2px solid #e8e9ea;
+  border-radius: 0.6rem;
+  color: #1a2935;
+  outline: none;
+  padding: 0 1.6rem;
+}
+
+.content__button {
+  width: 60%;
+  height: 4.5rem;
+  background-color: var(--color-secondary);
+  color: var(--color-principal);
+  align-items: center;
+  border: 0;
+  border-radius: 0.8rem;
+  cursor: pointer;
+  font-size: 1.8rem;
+  font-weight: 700;
+}

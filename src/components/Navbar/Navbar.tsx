@@ -1,9 +1,14 @@
 import React from "react";
+import { useSelector } from "react-redux";
+import { RootState } from "../../store";
 import "./styles.css";
 
 interface INavbarProps {}
 
 const Navbar: React.FC<INavbarProps> = () => {
+  // const dispatch = useDispatch();
+  const { nameRoom } = useSelector((state: RootState) => state.room.room);
+
   return (
     <div className="navbar_layout">
       <div className="HeaderPoker-module--header--6a74b">
@@ -409,7 +414,7 @@ const Navbar: React.FC<INavbarProps> = () => {
                 data-test="button-dropdown-game-title"
                 className="HeaderPoker-module--game-name--114ce ButtonDropdown-module--button--702f9"
               >
-                <span data-test="span-game-title-header">prueba</span>
+                <span data-test="span-game-title-header">{nameRoom}</span>
                 <div className="ButtonDropdown-module--chevron--5c034">
                   <svg
                     width="16"
