@@ -3,22 +3,20 @@ import {
   QueryDocumentSnapshot,
   addDoc,
   collection,
-  getDocs,
+  // getDocs,
   serverTimestamp,
 } from "firebase/firestore";
+import "./DashboardPage.css";
+
 import { useEffect, useState } from "react";
 import { SizeOption } from "../../common";
 import { Card, Navbar } from "../../components";
-
-import { db } from "../../common/config";
-
 import { useSelector } from "react-redux";
 import { RootState } from "../../store";
-import "./DashboardPage.css";
 import { Sidebar } from "./components/Sidebar";
 import { fibonacci } from "./enums";
-
 import { onSnapshot } from "firebase/firestore";
+import { db } from "../../firebase/config";
 
 export const DashboardPage = () => {
   const [showCard, setShowCard] = useState(false);
@@ -50,24 +48,6 @@ export const DashboardPage = () => {
     };
   }, []);
 
-  useEffect(() => {
-    testConnection();
-  }, []);
-
-  const testConnection = () => {
-    const refRoom = collection(db, "Room");
-    getDocs(refRoom)
-      .then((response) => {
-        const room = response.docs.map((doc: QueryDocumentSnapshot) => ({
-          data: doc.data(),
-          id: doc.id,
-        }));
-        console.log(room);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  };
   const pointDBRef = collection(db, "storyPoints");
 
   const savePoint = async (value: string) => {
@@ -76,10 +56,11 @@ export const DashboardPage = () => {
       text: value,
       createdAt: serverTimestamp(),
       room: nameRoom,
-    });
+    }); 
   };
 
   useEffect(() => {
+
     const userRef = collection(db, "User");
     const unsubscribe = onSnapshot(userRef, (snapshot) => {
       const user: any = snapshot.docs.map((doc: DocumentData) => {
@@ -87,6 +68,7 @@ export const DashboardPage = () => {
           ...doc.data(),
           id: doc.id,
         };
+
         return usertemporal;
       });
 
@@ -99,7 +81,7 @@ export const DashboardPage = () => {
   }, []);
 
   const slicesUser = () => {
-    users;
+    
   };
 
   const handleCardClick = (value: string) => {

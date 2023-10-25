@@ -7,9 +7,10 @@ import {
   updateDoc,
 } from "firebase/firestore";
 import { useEffect, useState } from "react";
-import { db } from "../../../../common";
+
 import { TaskCard } from "../TaskCard/TaskCard.component";
 import "./SideBar.component.css";
+import { db } from "../../../../firebase/config";
 
 interface Task {
   id?: string;
