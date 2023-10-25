@@ -11,8 +11,6 @@ import { useEffect, useState } from "react";
 import { SizeOption } from "../../common";
 import { Card, Navbar } from "../../components";
 
-// import { db } from "../../common/config";
-
 import { onSnapshot } from "firebase/firestore";
 import { useSelector } from "react-redux";
 import { db } from "../../firebase/config";
