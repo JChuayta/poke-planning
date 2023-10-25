@@ -13,6 +13,7 @@ import { Card, Navbar } from "../../components";
 
 import { onSnapshot } from "firebase/firestore";
 import { useSelector } from "react-redux";
+import { useParams } from "react-router-dom";
 import { db } from "../../firebase/config";
 import { RootState } from "../../store";
 import { Sidebar } from "./components/Sidebar";
@@ -22,6 +23,7 @@ export const DashboardPage = () => {
   const [showCard, setShowCard] = useState(false);
   const [cardActive, setCardActive] = useState<string | null>(null);
   const [selectedValue, setSelectedValue] = useState<string | null>(null);
+  const { roomId } = useParams();
 
   interface User {
     id: string;
@@ -39,6 +41,7 @@ export const DashboardPage = () => {
   };
 
   useEffect(() => {
+    console.log(roomId, "query params");
     const refRoom = collection(db, "Room");
 
     const unsubscribe = onSnapshot(refRoom, (snapshot) => {
