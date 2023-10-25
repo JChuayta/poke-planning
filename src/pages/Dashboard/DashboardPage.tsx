@@ -29,6 +29,7 @@ export const DashboardPage = () => {
     id: string;
     name: string;
     position: number;
+    roomId: string;
   }
   const [users, setUsers] = useState<User[]>([]);
 
@@ -70,8 +71,8 @@ export const DashboardPage = () => {
     const userRef = collection(db, "User");
 
     const unsubscribe = onSnapshot(userRef, (snapshot) => {
-      const user: any = snapshot.docs.map((doc: DocumentData) => {
-        const usertemporal: any = {
+      const user: User[] = snapshot.docs.map((doc: DocumentData) => {
+        const usertemporal: User = {
           ...doc.data(),
           id: doc.id,
           // position: Math.floor(Math.random() * tiposPosibles.length),
