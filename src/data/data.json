@@ -27,3 +27,109 @@
     "name": ""
   }
 }
+{
+  "streamToken": "GRBoQgKB9LW1",
+  "writes": [
+    {
+      "update": {
+        "name": "projects/planning-poker-429a4/databases/(default)/documents/users/SEuygnntoeMw8DAg2WJKMhI6eDS2",
+        "fields": {
+          "gameHistory": {
+            "arrayValue": {
+              "values": [
+                {
+                  "mapValue": {
+                    "fields": {
+                      "id": { "stringValue": "ZGI6ZbXLkb6tyrRZVsyw" },
+                      "name": { "stringValue": "pejis senior" },
+                      "lastJoinedAtMilis": { "integerValue": "1698262875431" },
+                      "createdAtMilis": { "integerValue": "1697851616093" }
+                    }
+                  }
+                },
+                {
+                  "mapValue": {
+                    "fields": {
+                      "name": { "stringValue": "Oscars Game" },
+                      "id": { "stringValue": "AeEs4LFBtEz9ka9suS4E" },
+                      "lastJoinedAtMilis": { "integerValue": "1698179824074" },
+                      "createdAtMilis": { "integerValue": "1697830647420" }
+                    }
+                  }
+                },
+                {
+                  "mapValue": {
+                    "fields": {
+                      "name": { "stringValue": "prueba" },
+                      "id": { "stringValue": "VXCVCwfAl4MTE2hgdCNw" },
+                      "lastJoinedAtMilis": { "integerValue": "1697824549646" },
+                      "createdAtMilis": { "integerValue": "1697469962662" }
+                    }
+                  }
+                }
+              ]
+            }
+          }
+        }
+      },
+      "updateMask": { "fieldPaths": ["gameHistory"] }
+    }
+  ]
+}
+
+{
+  "streamToken": "GRBoQgKB9LW1",
+  "writes": [
+    {
+      "update": {
+        "name": "projects/planning-poker-429a4/databases/(default)/documents/players/SEuygnntoeMw8DAg2WJKMhI6eDS2_ZGI6ZbXLkb6tyrRZVsyw",
+        "fields": {
+          "uid": { "stringValue": "SEuygnntoeMw8DAg2WJKMhI6eDS2" },
+          "tableId": { "stringValue": "ZGI6ZbXLkb6tyrRZVsyw" },
+          "displayName": { "stringValue": "Jc" },
+          "profilePictureUrl": { "nullValue": "NULL_VALUE" },
+          "tableName": { "stringValue": "pejis senior" },
+          "isSpectator": { "booleanValue": false }
+        }
+      },
+      "updateMask": {
+        "fieldPaths": [
+          "displayName",
+          "isSpectator",
+          "profilePictureUrl",
+          "tableId",
+          "tableName",
+          "uid"
+        ]
+      }
+    }
+  ]
+}
+{
+  "streamToken": "GRBoQgKB9LW1",
+  "writes": [
+    {
+      "update": {
+        "name": "projects/planning-poker-429a4/databases/(default)/documents/players/SEuygnntoeMw8DAg2WJKMhI6eDS2_ZGI6ZbXLkb6tyrRZVsyw",
+        "fields": { "state": { "stringValue": "offline" } }
+      },
+      "updateMask": { "fieldPaths": ["state"] },
+      "updateTransforms": [
+        { "fieldPath": "last_changed", "setToServerValue": "REQUEST_TIME" }
+      ]
+    }
+  ]
+}
+
+{
+  "streamToken": "GRBoQgKB9LW1",
+  "writes": [
+    {
+      "update": {
+        "name": "projects/planning-poker-429a4/databases/(default)/documents/users/SEuygnntoeMw8DAg2WJKMhI6eDS2",
+        "fields": { "splitTest": { "stringValue": "master" } }
+      },
+      "updateMask": { "fieldPaths": ["splitTest"] }
+    }
+  ]
+}

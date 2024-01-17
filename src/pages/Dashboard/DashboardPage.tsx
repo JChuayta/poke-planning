@@ -13,6 +13,7 @@ import { Card, Navbar } from "../../components";
 
 import { onSnapshot } from "firebase/firestore";
 import { useSelector } from "react-redux";
+import { useParams } from "react-router-dom";
 import { db } from "../../firebase/config";
 import { RootState } from "../../store";
 import { Sidebar } from "./components/Sidebar";
@@ -22,11 +23,13 @@ export const DashboardPage = () => {
   const [showCard, setShowCard] = useState(false);
   const [cardActive, setCardActive] = useState<string | null>(null);
   const [selectedValue, setSelectedValue] = useState<string | null>(null);
+  const { roomId } = useParams();
 
   interface User {
     id: string;
     name: string;
     position: number;
+    roomId: string;
   }
   const [users, setUsers] = useState<User[]>([]);
 
@@ -39,6 +42,7 @@ export const DashboardPage = () => {
   };
 
   useEffect(() => {
+    console.log(roomId, "query params");
     const refRoom = collection(db, "Room");
 
     const unsubscribe = onSnapshot(refRoom, (snapshot) => {
@@ -67,8 +71,8 @@ export const DashboardPage = () => {
     const userRef = collection(db, "User");
 
     const unsubscribe = onSnapshot(userRef, (snapshot) => {
-      const user: any = snapshot.docs.map((doc: DocumentData) => {
-        const usertemporal: any = {
+      const user: User[] = snapshot.docs.map((doc: DocumentData) => {
+        const usertemporal: User = {
           ...doc.data(),
           id: doc.id,
           // position: Math.floor(Math.random() * tiposPosibles.length),
