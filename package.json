@@ -10,7 +10,8 @@
     "dev": "vite --open",
     "build": "tsc && vite build --base=/poke-planning/",
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "test": "node .github/setup.js"
   },
   "dependencies": {
     "@ant-design/icons": "^5.2.6",
