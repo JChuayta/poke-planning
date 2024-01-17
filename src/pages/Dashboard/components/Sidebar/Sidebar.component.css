@@ -1,0 +1,50 @@
+.content__sidebar {
+  width: 25%;
+  background-color: rgb(255, 255, 255);
+  border-radius: 4rem;
+  padding: 2rem;
+}
+.sidebar__hu {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.hu__content-cards {
+  width: 100%;
+  height: 50%;
+  display: flex;
+  flex-direction: column;
+}
+
+.hu__input {
+  width: 100%;
+  height: 4rem;
+  margin: 1rem 0 1rem 0;
+  border: 2px solid #e8e9ea;
+  border-radius: 0.6rem;
+  padding: 0 1.6rem;
+}
+
+.hu__button {
+  width: 75%;
+  height: 3.6rem;
+  border: transparent;
+  border-radius: 0.9rem;
+  color: white;
+  cursor: pointer;
+  padding: 0 1.6rem;
+  background-color: #d7e9ff;
+  background: var(--color-secondary);
+}
+
+.hu__button:hover {
+  width: 75.4%;
+  height: 3.62rem;
+}
+
+.button__disabled {
+  pointer-events: none;
+  background-color: #f0f0f0;
+  color: #757575;
+}

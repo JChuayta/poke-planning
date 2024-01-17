@@ -1,1 +1,1 @@
-export * from "./sizeOption.enum";
+export * from "./enum";

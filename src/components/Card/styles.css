@@ -3,13 +3,9 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  /* margin: 0 1rem 0 1rem; */
 }
 
 .container__card {
-  /* its depends of your size
-  width: 8rem;
-  height: 12rem; */
   border-radius: 1.5rem;
   background-color: var(--color-principal);
   border: 3px solid var(--color-secondary);
@@ -19,9 +15,18 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-
   cursor: pointer;
   transition: all 0.09s linear;
+}
+
+.container__card-select {
+  transition: all 0.09s linear;
+  background-color: var(--color-secondary);
+  top: -20px;
+  position: relative;
+  .card__number {
+    color: var(--color-principal);
+  }
 }
 
 .card-medium {
@@ -30,43 +35,18 @@
 }
 
 .card-minimi {
-  width: 3rem;
   height: 6rem;
-}
-
-.card__noshow-unselect {
-  height: 8rem;
-  width: 5rem;
-  background-color: #e8e9ea;
+  width: 3.5rem;
   border-radius: 0.9rem;
   cursor: pointer;
 }
 
-.card__number {
-  color: var(--color-secondary);
-  font-weight: bold;
-}
-
-.card-medium:hover {
-  width: 6.3rem;
-  height: 10.3rem;
-  background-color: #d7e9ff;
-  transform: translateY(-1px);
-}
-
-.container__card:hover .card__number {
-  /* color: var(--color-principal); */
-}
-
-.card__name {
-  margin: 10px 0 0 0;
+.card__noshow-unselect {
+  background-color: #e8e9ea;
 }
 
 .card__noshow-select {
   align-items: center;
-  -webkit-backface-visibility: hidden;
-  backface-visibility: hidden;
-  background: #3993ff;
   background: linear-gradient(
       45deg,
       #3993ff 12%,
@@ -91,11 +71,26 @@
     #74b3ff;
   background-size: 17px 17px;
   border: 1px solid hsla(204, 6%, 68%, 0.4);
-  border-radius: 0.6rem;
   box-shadow: 0 2px 4px hsla(204, 6%, 68%, 0.4);
-  display: flex;
-  height: 6rem;
-  justify-content: center;
-  overflow: hidden;
-  width: 3.5rem;
+  cursor: pointer;
+}
+
+.card__number {
+  color: var(--color-secondary);
+  font-weight: bold;
+}
+
+.card-medium:hover {
+  width: 6.3rem;
+  height: 10.3rem;
+  background-color: #d7e9ff;
+  transform: translateY(-1px);
+}
+
+.container__card:hover .card__number {
+  /* color: var(--color-principal); */
+}
+
+.card__name {
+  margin: 10px 0 0 0;
 }
